@@ -13,6 +13,11 @@ export class BookComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // "trace driven development"
+    /* console.time('FOO');
+    console.log('Hallo');
+    console.table(this.book);
+    console.timeEnd('FOO');*/
   }
 
   getStars() {
