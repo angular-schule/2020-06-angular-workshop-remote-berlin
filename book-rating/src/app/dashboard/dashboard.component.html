@@ -1,1 +1,9 @@
-{{ books }}
+<br-book
+  *ngFor="let b of books"
+  [book]="b"></br-book>
+
+<!--
+<ng-container *ngFor="let b of books">
+  <br-book [book]="b"></br-book>
+</ng-container>
+-->
