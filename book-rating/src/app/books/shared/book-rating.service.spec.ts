@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { BookRatingService } from './book-rating.service';
 import { Book } from './book';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 describe('BookRatingService', () => {
   let service: BookRatingService;
