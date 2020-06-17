@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ControlContainer } from '@angular/forms';
+import { Book } from '../shared/book';
+import { BookStoreService } from '../shared/book-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'br-book-form',
@@ -10,7 +13,7 @@ export class BookFormComponent implements OnInit {
 
   bookForm: FormGroup;
 
-  constructor() { }
+  constructor(private bs: BookStoreService, private router: Router) { }
 
   ngOnInit(): void {
     this.bookForm = new FormGroup({
@@ -30,5 +33,22 @@ export class BookFormComponent implements OnInit {
     return control.invalid && control.touched;
   }
 
+  hasError(controlName: string, errorCode: string) {
+    const control = this.bookForm.get(controlName);
+    return control.hasError(errorCode) && control.touched;
+  }
+
+  submitForm() {
+    // Buch erzeugen
+    const book: Book = {
+      ...this.bookForm.value,
+      rating: 1
+    };
+
+    this.bs.create(book).subscribe(() => {
+      this.bookForm.reset(); // nur benötigt, wenn wir nicht wegnavigieren
+      this.router.navigate(['/books', book.isbn]);
+    });
+  }
 
 }
