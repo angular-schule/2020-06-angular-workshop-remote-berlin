@@ -26,7 +26,6 @@ export class BookDetailsComponent implements OnInit {
     // TODO: Verschachteltes Subscribe verhindern
     this.route.paramMap.subscribe(params => {
       const isbn = params.get('isbn');
-      console.log(isbn);
 
       this.bs.getSingle(isbn).subscribe(book => {
         this.book = book;

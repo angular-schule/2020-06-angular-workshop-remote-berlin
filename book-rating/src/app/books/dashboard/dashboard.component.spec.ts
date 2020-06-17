@@ -3,6 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
+import { of } from 'rxjs';
+import { BookComponent } from '../book/book.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -30,7 +33,8 @@ describe('DashboardComponent', () => {
         // Abhängigkeit ersetzen:
         // Wenn BRS angefordert wird, wird ratingMock ausgeliefert
         { provide: BookRatingService, useValue: ratingMock }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

@@ -1,4 +1,17 @@
-{{ book | json }}
+<ng-container *ngIf="book; else loading">
+
+  <h2>{{ book.title }}</h2>
+
+  <p>
+    {{ book.description }}
+  </p>
+
+</ng-container>
+
+<ng-template #loading>
+  Bücher werden geladen...
+</ng-template>
+
 
 <hr>
 
