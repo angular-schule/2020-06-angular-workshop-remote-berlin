@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookStoreService } from '../shared/book-store.service';
 import { Book } from '../shared/book';
+import { map, concatMap, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'br-book-details',
@@ -10,28 +12,20 @@ import { Book } from '../shared/book';
 })
 export class BookDetailsComponent implements OnInit {
 
-  book: Book;
+  book$: Observable<Book>;
 
   constructor(private route: ActivatedRoute, private bs: BookStoreService) { }
-
-  // Service
-  // Parameter lesen
-  // HTTP-Request
-  // Anzeige
 
   ngOnInit(): void {
     /*const isbn = this.route.snapshot.paramMap.get('isbn');
     console.log(isbn);*/
 
-    // TODO: Verschachteltes Subscribe verhindern
-    this.route.paramMap.subscribe(params => {
-      const isbn = params.get('isbn');
 
-      this.bs.getSingle(isbn).subscribe(book => {
-        this.book = book;
-      });
+    this.book$ = this.route.paramMap.pipe(
+      map(params => params.get('isbn')),
+      switchMap(isbn => this.bs.getSingle(isbn))
+    );
 
-    });
   }
 
 }
